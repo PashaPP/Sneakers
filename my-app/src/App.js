@@ -6,7 +6,12 @@ import Drawer from './components/Drawer';
 function App() {
   const [itemsSneakers, setItemsSneakers] = React.useState([]);
   const [cartItemsSneakers, setCartItemsSneakers] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState('');
   const [cartOpen, setCartOpen] = React.useState(false);
+
+  const onChangeSearchInput = (event) => {
+    setSearchValue(event.target.value);
+  };
 
   const onAdToCart = (obj) => {
     setCartItemsSneakers((prev) => [...prev, obj]);
@@ -31,13 +36,15 @@ function App() {
           <h1>Все кроссовки</h1>
           <div className="search-block">
             <img width={15} height={15} src="img/searchIcon.svg" alt="Search" />
-            <input placeholder="Поиск..." />
+            <img className="clear cu-p" src="/img/btn-remove.svg" alt="Clear" />
+            <input onChange={onChangeSearchInput} placeholder="Поиск..." />
           </div>
         </div>
 
         <div className="d-flex flex-wrap">
           {itemsSneakers.map((item) => (
             <Card
+              key={item.imageUrl}
               title={item.title}
               price={item.price}
               image={item.imageUrl}
