@@ -12,6 +12,9 @@ function App() {
   const onChangeSearchInput = (event) => {
     setSearchValue(event.target.value);
   };
+  const clearSearch = () => {
+    setSearchValue('');
+  };
 
   const onAdToCart = (obj) => {
     setCartItemsSneakers((prev) => [...prev, obj]);
@@ -34,24 +37,34 @@ function App() {
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
           <h1>Все кроссовки</h1>
+
           <div className="search-block">
             <img width={15} height={15} src="img/searchIcon.svg" alt="Search" />
-            <img className="clear cu-p" src="/img/btn-remove.svg" alt="Clear" />
-            <input onChange={onChangeSearchInput} placeholder="Поиск..." />
+            {searchValue && (
+              <img
+                onClick={clearSearch}
+                className="clear cu-p"
+                src="/img/btn-remove.svg"
+                alt="Clear"
+              />
+            )}
+            <input onChange={onChangeSearchInput} value={searchValue} placeholder="Поиск..." />
           </div>
         </div>
 
         <div className="d-flex flex-wrap">
-          {itemsSneakers.map((item) => (
-            <Card
-              key={item.imageUrl}
-              title={item.title}
-              price={item.price}
-              image={item.imageUrl}
-              onAddFavorite={() => console.log('Добавили в закладки]')}
-              onPlus={(obj) => onAdToCart(item)}
-            />
-          ))}
+          {itemsSneakers
+            .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+            .map((item) => (
+              <Card
+                key={item.index}
+                title={item.title}
+                price={item.price}
+                image={item.imageUrl}
+                onAddFavorite={() => console.log('Добавили в закладки]')}
+                onPlus={(obj) => onAdToCart(obj)}
+              />
+            ))}
         </div>
       </div>
     </div>
