@@ -7,7 +7,7 @@ const Header = (props) => {
         <img width={40} height={40} src="/img/logo.png" alt="logo" />
         <div>
           <h3 className="text-uppercase">react sneakers</h3>
-          <p className="opacity-5">Магазин лучших кроссовок</p>
+          <p className="opacity-5">Магазин кроссовок</p>
         </div>
       </div>
       <ul className="d-flex">
